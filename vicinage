@@ -1,0 +1,104 @@
+import processing.video.*;
+Movie myMovie;
+
+int gfx;
+
+PImage img1;
+PImage img2;
+PImage img3;
+PImage img4;
+PImage img5;
+PImage img6;
+PImage img7;
+PImage img8;
+PImage img9;
+PImage img10;
+
+void setup() {
+  size(640, 360);
+  
+  //surface.setResizable(true);
+  
+  pixelDensity(1);
+  frameRate(30);
+  myMovie = new Movie(this, "Contemporary Ballet Solo Fly.mov");
+  myMovie.loop();
+  myMovie.volume(1);
+  
+  img1 = loadImage("blue-diamond-1.png");
+  img2 = loadImage("blue-diamond-2.png");
+  img3 = loadImage("blue-diamond-3.png");
+  img4 = loadImage("blue-diamond-4.png");
+  img5 = loadImage("blue-diamond-5.png");
+  img6 = loadImage("blue-diamond-6.png");
+  img7 = loadImage("blue-diamond-7.png");
+  img8 = loadImage("blue-diamond-8.png");
+  img9 = loadImage("blue-diamond-9.png");
+  img10 = loadImage("blue-diamond-10.png");
+}
+
+void movieEvent(Movie myMovie) {
+  myMovie.read();
+}
+
+void draw() {
+  image(myMovie, 0, 0, width, height);
+  
+  background(0);
+  
+  filter(POSTERIZE, 5);
+  
+  for(int x = 0; x < myMovie.width; x += 6){
+    for(int y = 0; y < myMovie.height; y += 6){
+
+      int loc = x + y * myMovie.width;
+
+      float r = red(myMovie.pixels[loc]);
+      float g = green(myMovie.pixels[loc]);
+      float b = blue(myMovie.pixels[loc]);
+      
+      float brightness = (r + g + b) / 3;
+      
+      if (brightness < 10) { 
+        image (img10, x, y, 7, 7);
+      }
+      
+      else if (brightness >= 10 && brightness < 30){
+      image (img9, x, y, 7, 7);
+      }
+      
+      else if (brightness >= 30 && brightness < 60){
+      image (img8, x, y, 7, 7);
+      }
+      
+      else if (brightness >= 60 && brightness < 90){
+      image (img7, x, y, 7, 7);
+      }
+      
+      else if (brightness >= 90 && brightness < 120){
+      image (img6, x, y, 7, 7);
+      }
+      
+      else if (brightness >= 120 && brightness < 150){
+      image (img5, x, y, 7, 7);
+      }
+      
+      else if (brightness >= 150 && brightness < 180){
+      image (img4, x, y, 7, 7);  
+      }
+      
+      else if (brightness >= 180 && brightness < 210){
+      image (img3, x, y, 7, 7); 
+      }
+      
+      else if (brightness >= 210 && brightness < 240){
+      image (img2, x, y, 7, 7); 
+      }
+      
+      else if (brightness >= 240){
+      image (img1, x, y, 7, 7);
+      }
+
+    }
+  }
+}
